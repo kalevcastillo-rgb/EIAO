@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Moda &Estilo - Tienda de Ropa | PIA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(145deg, #fdf8f0 0%, #f9ede0 100%);
+            color: #2c1810;
+            min-height: 100vh;
+            padding: 1.2rem;
+        }
+        .container {
+            max-width: 1400px;
+            width: 92%;
+            margin: 0 auto;
+            background: rgba(255, 250, 240, 0.92);
+            border-radius: 48px;       
+            padding: 1.8rem;             
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(2px);
+        }
+        .navbar {
+            background: #5e2e1c;
+            border-radius: 60px;
+            margin-bottom: 2rem;
+            padding: 0.6rem 1.5rem;
+            border-image: repeating-linear-gradient(45deg, #e9b35f, #c47a44, #e9b35f) 30;
+            border-bottom: 5px solid;
+            border-image-slice: 1;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+        }
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .nav-menu li a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff3e6;
+            font-weight: bold;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            background: rgba(255, 215, 180, 0.2);
+            font-size: 1.05rem;
+        }
+
+        /* pseudo-clase hover en menú */
+        .nav-menu li a:hover {
+            background: #e3a15f;
+            color: #2c1810;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* ===== SECCIONES GENERALES ===== */
+        .section {
+            background: #ffffffdd;
+            background: linear-gradient(135deg, #fff9f0, #fff5ea);
+            border-radius: 32px;
+            padding: 2rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 12px 28px rgba(92, 50, 30, 0.08);
+            transition: transform 0.2s;
+            border: 1px solid #f2ddc0;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            background: linear-gradient(135deg, #5e2e1c, #c47a44);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* ===== PRODUCTOS (ARTÍCULOS DE ROPA) ===== */
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1.8rem;
+        }
+
+        .producto-card {
+            background: white;
+            border-radius: 36px;            /* border radius grande */
+            overflow: hidden;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            border: 1px solid #f1dfcf;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(94, 46, 28, 0.25);
+        }
+
+        .producto-img {
+            width: 100%;    /* unidad relativa */
+            height: 240px;
+            object-fit: cover;
+            border-radius: 28px;
+            margin-bottom: 1rem;
+            border: 2px solid #e9b35f;
+        }
+
+        .producto-titulo {
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
+            color: #5e2e1c;
+        }
+
+        .precio {
+            font-weight: bold;
+            color: #c47a44;
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+        }
+
+        .destacado {
+            background: #f6e3cf;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+        }
+
+        /* ===== TABLA DE SUCURSALES (más de 1000 puntos) con: bordes, hoverable, rayada, responsive ===== */
+        .tabla-wrapper {
+            overflow-x: auto;    /* tabla receptiva */
+            border-radius: 28px;
+            margin: 1.5rem 0;
+        }
+
+        .sucursales-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            background: #fffcf7;
+            /* bordes de mesa */
+            border: 2px solid #bc6c25;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .sucursales-tabla th, .sucursales-tabla td {
+            border: 1px solid #e2cfb3;
+            padding: 14px 12px;
+            text-align: left;
+        }
+
+        .sucursales-tabla th {
+            background-color: #bc6c25;
+            color: white;
+            font-weight: 700;
+        }
+
+        /* Tabla rayada (striped) */
+        .sucursales-tabla tbody tr:nth-child(even) {
+            background-color: #fff2e4;
+        }
+
+        /* Tabla hoverable (pseudo-clase hover) */
+        .sucursales-tabla tbody tr:hover {
+            background-color: #fae5c3;
+            transition: 0.2s;
+            cursor: default;
+        }
+
+        /* pseudo-clases en enlaces y botones */
+        .btn-ropa {
+            display: inline-block;
+            background: #5e2e1c;
+            color: white;
+            padding: 0.6rem 1.3rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn-ropa:hover {
+            background: #c47a44;
+            transform: scale(0.97);
+        }
+
+        /* ========== PSEUDO-ELEMENTOS ::before y ::after ========== */
+        .titulo-pseudo {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 1.9rem;
+        }
+        .titulo-pseudo::before {
+            content: "👗 ";
+            font-size: 1.8rem;
+            color: #bc6c25;
+        }
+        .titulo-pseudo::after {
+            content: " 👒";
+            font-size: 1.7rem;
+            color: #e3a15f;
+        }
+
+        /* Otro ::before destacado */
+        .badge-exclusivo::before {
+            content: "✨ ";
+            font-weight: bold;
+            color: #c47a44;
+        }
+
+        /* ===== SIDEBAR - MENÚ VERTICAL (cumple con menús verticales) ===== */
+        .flex-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .sidebar-vertical {
+            flex: 1.2;
+            min-width: 230px;
+            background: #fff7ef;
+            border-radius: 32px;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+            height: fit-content;
+            border-image: repeating-linear-gradient(30deg, #e9b35f, #f3cf9a) 30;
+            border: 2px solid #e9b35f;
+        }
+
+        .vertical-menu {
+            list-style: none;
+            padding: 0;
+        }
+        .vertical-menu li {
+            margin-bottom: 0.9rem;
+            border-bottom: 1px solid #edd7b0;
+        }
+        .vertical-menu li a {
+            display: block;
+            padding: 0.7rem 1rem;
+            background: #fdf1e3;
+            border-radius: 60px;
+            color: #5e2e1c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .vertical-menu li a:hover {
+            background: #e3a15f;
+            color: white;
+            padding-left: 1.6rem;
+        }
+
+        .main-content {
+            flex: 3;
+        }
+
+        /* ===== FORMULARIO DE CONTACTO ===== */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 50px;
+            border: 1px solid #ddb892;
+            background: #fffef7;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #bc6c25;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(188,108,37,0.2);
+        }
+        button[type="submit"] {
+            background: #5e2e1c;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background: #c47a44;
+        }
+
+        /* multimedia: video y música */
+        .media-box {
+            background: #5e2e1c;
+            border-radius: 40px;
+            padding: 1.2rem;
+            text-align: center;
+            color: #ffefdf;
+            margin: 1rem 0;
+        }
+        audio, video {
+            width: 100%;
+            max-width: 520px;
+            border-radius: 40px;
+            margin: 0.6rem auto;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.2rem;
+            border-top: 3px dotted #e9b35f;
+            color: #5e2e1c;
+        }
+
+        /* Responsive */
+        @media (max-width: 780px) {
+            body { padding: 0.6rem; }
+            .container { padding: 1rem; width: 96%; }
+            .nav-menu { flex-direction: column; align-items: center; }
+            .flex-layout { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- BARRA DE NAVEGACIÓN HORIZONTAL -->
+    <nav class="navbar">
+        <ul class="nav-menu">
+            <li><a href="#inicio">🏠 Inicio</a></li>
+            <li><a href="#articulos">👕 Colección</a></li>
+            <li><a href="#sucursales">📍 Sucursales</a></li>
+            <li><a href="#formulario">📝 Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- INICIO: Portada con información del negocio y menú -->
+    <section id="inicio" class="section">
+        <h1 class="titulo-pseudo">Moda &Estilo México</h1>
+        <p><strong>✨ Tu estilo, nuestra pasión ✨</strong> Somos una empresa 100% mexicana de ropa de alta calidad. Contamos con <strong>más de 1,200 puntos de venta</strong> en todo el país, ofreciendo las últimas tendencias en moda casual, formal, deportiva y accesorios. En Moda&Estilo creemos en la comodidad, la sostenibilidad y el buen vestir para todos.</p>
+        <p>Además, tenemos envíos a toda la república y promociones exclusivas para membresía. ¡Descubre nuestras colecciones de primavera-verano!</p>
+    </section>
+
+    <!-- ARTÍCULOS / PRODUCTOS DE ROPA que tienen venta en México -->
+    <section id="articulos" class="section">
+        <h2 class="titulo-pseudo">🔥 Lo más vendido en México</h2>
+        <div class="productos-grid">
+            <div class="producto-card">
+                <img class="producto-img" src="vestido boho.jpg" alt="Vestido casual">
+                <h3 class="producto-titulo">Vestido Boho Floral</h3>
+                <p>Tejido 100% algodón, diseño fresco para clima cálido. Ideal para eventos o día a día.</p>
+                <span class="precio">$789 MXN</span>
+                <div class="destacado">Envío gratis + talles S-XXL</div>
+            </div>
+            <div class="producto-card">
+                <img class="producto-img" src="camisa lino.jpg" alt="Camisa de lino">
+                <h3 class="producto-titulo">Camisa de Lino Hombre</h3>
+                <p>Liviana, elegante y transpirable. Colores neutros, combina con todo.</p>
+                <span class="precio">$599 MXN</span>
+            </div>
+            <div class="producto-card">
+                <img class="producto-img" src="Jeans.jpg" alt="Jeans rotos">
+                <h3 class="producto-titulo">Jeans Skinny Elástico</h3>
+                <p>Mezclilla de alto confort, estilo urbano. Disponible en varios lavados.</p>
+                <span class="precio">$899 MXN</span>
+            </div>
+            <div class="producto-card">
+                <img class="producto-img" src="Chaqueta.jpg" alt="Chaqueta denim">
+                <h3 class="producto-titulo">Chaqueta Denim Overzied</h3>
+                <p>Ícono de estilo, con parches y lavado ácido. Un must-have.</p>
+                <span class="precio">$1,299 MXN</span>
+                <span class="badge-exclusivo">Edición Limitada</span>
+            </div>
+        </div>
+        <p class="badge-exclusivo" style="margin-top:1rem;">✅ Todos los productos están disponibles en tienda física y en línea con envíos a todo México.</p>
+    </section>
+
+    <!-- SUCURSALES: más de 1000 sitios de venta, tabla con bordes, hoverable, rayada, responsive -->
+    <section id="sucursales" class="section">
+        <h2 class="titulo-pseudo">📍 Nuestras tiendas (+1200 sucursales en México)</h2>
+        <div class="tabla-wrapper">
+            <table class="sucursales-tabla">
+                <thead>
+                    <tr>
+                        <th>Región</th>
+                        <th>Ciudad</th>
+                        <th>Dirección</th>
+                        <th>Horario especial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Noreste</td>
+                        <td>Monterrey, NL</td>
+                        <td>Av. Eugenio Garza Sada #2500, local 12 - Moda&Estilo</td>
+                        <td>10:00 - 20:30</td>
+                    </tr>
+                    <tr>
+                        <td>Centro</td>
+                        <td>CDMX</td>
+                        <td>Paseo de la Reforma 540, Col. Juárez, frente al Ángel</td>
+                        <td>11:00 - 21:00</td>
+                    </tr>
+                    <tr>
+                        <td>Occidente</td>
+                        <td>Guadalajara, Jal.</td>
+                        <td>Av. Patria 1500, Plaza Andares Local 45</td>
+                        <td>10:00 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>Sureste</td>
+                        <td>Mérida, Yuc.</td>
+                        <td>Calle 60 #459 x 53, Centro Histórico</td>
+                        <td>9:30 - 19:30</td>
+                    </tr>
+                    <tr>
+                        <td>Noroeste</td>
+                        <td>Tijuana, B.C.</td>
+                        <td>Paseo de los Héroes 9399, Zona Río</td>
+                        <td>10:00 - 19:00</td>
+                    </tr>
+                    <tr>
+                        <td>Bajío</td>
+                        <td>León, Gto.</td>
+                        <td>Blvd. Adolfo López Mateos 1902, local 8</td>
+                        <td>11:00 - 20:00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong>🌟 Sucursal emblemática:</strong> <em>UANL - Escuela Industrial y Preparatoria Técnica "Álvaro Obregón"</em> (punto de venta estudiantil con descuentos especiales). Tenemos presencia en más de 1000 ubicaciones, incluyendo puntos en centros comerciales, plazas y tiendas independientes en toda la república.</p>
+    </section>
+
+    <!-- LAYOUT CON MENÚ VERTICAL (adicional) Y FORMULARIO (integración) -->
+    <div class="flex-layout">
+        <!-- SIDEBAR: menú vertical (propiedad solicitada: menús verticales) -->
+        <aside class="sidebar-vertical">
+            <h3 style="color:#5e2e1c; text-align:center;">👗 Navegación Rápida</h3>
+            <ul class="vertical-menu">
+                <li><a href="#inicio">✨ Inicio</a></li>
+                <li><a href="#articulos">🛍️ Nueva colección</a></li>
+                <li><a href="#sucursales">📍 Encuentra tu tienda</a></li>
+                <li><a href="#formulario">📩 Asesoría de moda</a></li>
+                <li><a href="#">💳 Promociones bancarias</a></li>
+            </ul>
+            <div style="margin-top: 1.2rem; text-align:center;">
+                <span class="badge-exclusivo">👖 Envío gratuito en compras > $999</span>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL: formulario y video/música -->
+        <div class="main-content">
+            <!-- FORMULARIO DE CONTACTO -->
+            <section id="formulario" class="section" style="margin-bottom: 1.5rem;">
+                <h2 class="titulo-pseudo">💌 Contáctanos o suscríbete</h2>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label>Nombre completo:</label>
+                        <input type="text" placeholder="Ej: Ana Lucía Martínez" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo electrónico:</label>
+                        <input type="email" placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="tel" placeholder="55 1234 5678">
+                    </div>
+                    <div class="form-group">
+                        <label>Ciudad de interés:</label>
+                        <select>
+                            <option>CDMX</option>
+                            <option>Monterrey</option>
+                            <option>Guadalajara</option>
+                            <option>Mérida</option>
+                            <option>Querétaro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Comentarios o talla de preferencia:</label>
+                        <textarea rows="3" placeholder="Cuéntanos qué te gustaría encontrar..."></textarea>
+                    </div>
+                    <button type="submit">Enviar mensaje</button>
+                </form>
+                <p class="destacado" style="margin-top:1rem;">*Recibirás catálogo y ofertas exclusivas.</p>
+            </section>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Moda&Estilo - Empresa de ropa mexicana con más de 1200 puntos de venta en el país.  |  Calidad, tendencia y compromiso.</p>
+    </footer>
+</div>
+
+<script>
+    // Función para mostrar mensaje de éxito y simular redirección a página de agradecimiento
+    function mostrarMensajeExito() {
+        // Validar campos requeridos
+        var nombre = document.getElementById('nombre').value;
+        var email = document.getElementById('email').value;
+        
+        if(nombre === "" || email === "") {
+            alert("❌ Por favor, completa tu nombre y correo electrónico antes de enviar.");
+            return false;
+        }
+        
+        // Mostrar alerta de éxito
+        alert("✨ ¡Gracias " + nombre + "! Tu mensaje ha sido enviado a nuestro equipo de Moda&Estilo.\n\nNos pondremos en contacto contigo pronto. 📧\n\nRecibirás nuestro catálogo de ropa exclusivo.");
+        
+        // Limpiar el formulario después del envío simulado
+        document.getElementById('contactForm').reset();
+        
+        // Redirigir a una página de "gracias" (puedes crear un archivo gracias.html)
+        // Si no existe la página, se queda en el mismo sitio
+        window.location.href = "#inicio";
+        
+        // Scroll suave hacia el inicio
+        document.getElementById('inicio').scrollIntoView({ behavior: 'smooth' });
+        
+        return true;
+    }
+</script>
+
+<!-- Pequeño estilo adicional para mejorar la experiencia del formulario -->
+<style>
+    /* Animación sutil en el botón */
+    button[type="submit"]:active {
+        transform: scale(0.96);
+        transition: 0.05s;
+    }
+    
+    /* Mejora en el focus de campos del formulario */
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        border-color: #bc6c25;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(188,108,37,0.25);
+        background-color: #fffcf5;
+    }
+    
+    /* Estilo para hover en tabla */
+    .sucursales-tabla tbody tr:hover {
+        background-color: #fae5c3;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+    
+    /* Mejora responsive para el sidebar vertical */
+    @media (max-width: 780px) {
+        .sidebar-vertical {
+            order: 2;
+        }
+        .main-content {
+            order: 1;
+        }
+    }
+</style>
+
+</body>
+</html>
